@@ -5,6 +5,10 @@
   "repository": "https://github.com/Sergey-hub02/DS-MIREA-task-5.git",
   "author": "Sergey-hub02 <s.park190802@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/index.js"
+  },
   "devDependencies": {
     "@types/node": "^14.14.37",
     "typescript": "^4.2.4"
