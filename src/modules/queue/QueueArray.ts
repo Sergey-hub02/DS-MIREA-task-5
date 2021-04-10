@@ -15,12 +15,15 @@ class QueueArray<T> {
 
 
   /**
-   * Добавляет элемент в конец очереди
-   * @param element       добавляемый элемент
+   * Добавляет элементы в конец очереди
+   * @param elements       добавляемый элемент
    */
-  add(element: T): void {
-    ++this.size;
-    this.array.push(element);
+  add(...elements: Array<T>): void {
+    this.size += elements.length;
+    
+    for (const element of elements) {
+      this.array.push(element);
+    }
   }
 
 
@@ -42,6 +45,15 @@ class QueueArray<T> {
 
     --this.size;
     this.array.shift();
+  }
+
+
+  /**
+   * Опустошает очередь (удаляет все элементы из очереди)
+   */
+  clear(): void {
+    this.size = 0;
+    this.array = [];
   }
 
 
