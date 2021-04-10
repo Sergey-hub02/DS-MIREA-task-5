@@ -21,6 +21,8 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "./src/**/*.ts",
+    // "./src/**/*.ts",
+    "./src/index.ts",
+    "./src/modules/node/Node.ts"
   ]
 }

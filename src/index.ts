@@ -1,5 +1,3 @@
-import Queue from "./modules/queue/QueueArray";
-
 /**
  * Основная функция
  */
