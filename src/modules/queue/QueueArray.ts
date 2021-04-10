@@ -2,15 +2,23 @@
  * Представляет структуру данных очередь, которая реализована с помощью массива
  */
 class QueueArray<T> {
-  private size: number;         // количество элементов в очереди
+  private _size: number;         // количество элементов в очереди
   private array: Array<T>;      // вспомогательный массив
 
   /**
    * Конструктор по умолчанию, который создаёт пустую очередь
    */
   constructor() {
-    this.size = 0;
+    this._size = 0;
     this.array = [];
+  }
+
+
+  /**
+   * Геттер, который возвращает количество элементов в очереди
+   */
+  get size(): number {
+    return this._size;
   }
 
 
@@ -19,7 +27,7 @@ class QueueArray<T> {
    * @param elements       добавляемый элемент
    */
   add(...elements: Array<T>): void {
-    this.size += elements.length;
+    this._size += elements.length;
     
     for (const element of elements) {
       this.array.push(element);
@@ -31,7 +39,7 @@ class QueueArray<T> {
    * Возвращает элемент, который находится в начале очереди
    */
   peek(): T | undefined {
-    return (this.size === 0) ? undefined : this.array[0];
+    return (this._size === 0) ? undefined : this.array[0];
   }
 
 
@@ -39,11 +47,11 @@ class QueueArray<T> {
    * Удаляет элемент, который находится в начале очереди
    */
   poll(): void {
-    if (this.size === 0) {
+    if (this._size === 0) {
       throw new Error("[ERROR]: Нельзя удалить элемент, т.к. очередь пуста!");
     }
 
-    --this.size;
+    --this._size;
     this.array.shift();
   }
 
@@ -52,8 +60,16 @@ class QueueArray<T> {
    * Опустошает очередь (удаляет все элементы из очереди)
    */
   clear(): void {
-    this.size = 0;
+    this._size = 0;
     this.array = [];
+  }
+
+
+  /**
+   * Определяет, является ли очередь пустой
+   */
+  isEmpty(): boolean {
+    return (this._size === 0);
   }
 
 
