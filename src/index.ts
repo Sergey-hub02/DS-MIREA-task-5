@@ -18,6 +18,7 @@ const main: () => Promise<void> = async () => {
 
   console.log(lst.size);
   console.log(lst);
+  console.log(lst.toString());
 }
 
 

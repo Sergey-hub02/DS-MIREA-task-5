@@ -1,4 +1,5 @@
 import Node from "../node/Node"
+import { cloneDeep } from "lodash";
 
 /**
  * Класс, представляющий структуру данных однонаправленный список
@@ -51,23 +52,26 @@ class List<T> {
 
 
   /**
-   * Добавляет элементы или элемент в конец списка
+   * Добавляет элементы или элемент в начало списка
    * @param elements        добавляемые элементы
    */
   public add(...elements: Array<T>): void {
     this._size += elements.length;
 
-    let copyHeader: Node<T> | null | undefined = JSON.parse(JSON.stringify(this._header)) as Node<T>;
-
-    while (copyHeader != null) {
-      copyHeader = copyHeader.next;
-    }
-
-    // сейчас в copyHeader находится значение null, что в принципе является последним элементом
     for (const element of elements) {
-      copyHeader = new Node(element);
-      copyHeader.next = null;
-      copyHeader = copyHeader.next;
+      let tempNode: Node<T> = new Node(element);
+
+      if (this._header === null) {  // список пустой
+        this._header = tempNode;
+        this._header.next = null;
+        continue;
+      }
+
+      // список не является пустым, поэтому нужно применить трюк Вирта
+      [this._header!.value, tempNode.value] = [tempNode.value, this._header!.value];
+
+      tempNode.next = this._header!.next;
+      this._header!.next = tempNode;
     }
   }
 
@@ -76,18 +80,19 @@ class List<T> {
    * Возвращает строковое представление однонаправленного списка
    */
   public toString(): string {
-    if (this._size === 0) {
+    if (this._size === 0) {   // список пустой
       return "[]";
     }
 
-    let copyHeader: Node<T> | null | undefined = this._header;
+    // клонирование головного объекта списка
+    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
 
-    let strList: string = `[${(copyHeader as Node<T>).toString()}`;
-    copyHeader = (copyHeader as Node<T>).next;
+    let strList: string = `[${copyHeader!.value}`;
+    copyHeader = copyHeader!.next;
 
-    while (copyHeader != null) {
-      strList += `, ${copyHeader.toString()}`;
-      copyHeader = (copyHeader as Node<T>).next;
+    while (copyHeader !== null) {
+      strList += `, ${copyHeader!.value}`;
+      copyHeader = copyHeader!.next;
     }
 
     strList += `]`;
