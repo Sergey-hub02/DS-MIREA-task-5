@@ -8,7 +8,7 @@ class QueueArray<T> {
   /**
    * Конструктор по умолчанию, который создаёт пустую очередь
    */
-  constructor() {
+  public constructor() {
     this._size = 0;
     this.array = [];
   }
@@ -17,7 +17,7 @@ class QueueArray<T> {
   /**
    * Геттер, который возвращает количество элементов в очереди
    */
-  get size(): number {
+  public get size(): number {
     return this._size;
   }
 
@@ -26,7 +26,7 @@ class QueueArray<T> {
    * Добавляет элементы в конец очереди
    * @param elements       добавляемый элемент
    */
-  add(...elements: Array<T>): void {
+  public add(...elements: Array<T>): void {
     this._size += elements.length;
     
     for (const element of elements) {
@@ -38,7 +38,7 @@ class QueueArray<T> {
   /**
    * Возвращает элемент, который находится в начале очереди
    */
-  peek(): T | undefined {
+  public peek(): T | undefined {
     return (this._size === 0) ? undefined : this.array[0];
   }
 
@@ -46,7 +46,7 @@ class QueueArray<T> {
   /**
    * Удаляет элемент, который находится в начале очереди
    */
-  poll(): void {
+  public poll(): void {
     if (this._size === 0) {
       throw new Error("[ERROR]: Нельзя удалить элемент, т.к. очередь пуста!");
     }
@@ -59,7 +59,7 @@ class QueueArray<T> {
   /**
    * Опустошает очередь (удаляет все элементы из очереди)
    */
-  clear(): void {
+  public clear(): void {
     this._size = 0;
     this.array = [];
   }
@@ -68,7 +68,7 @@ class QueueArray<T> {
   /**
    * Определяет, является ли очередь пустой
    */
-  isEmpty(): boolean {
+  public isEmpty(): boolean {
     return (this._size === 0);
   }
 
@@ -76,7 +76,7 @@ class QueueArray<T> {
   /**
    * Возвращает строковое представление очереди
    */
-  toString(): string {
+  public toString(): string {
     return `[${this.array.join()}]`;
   }
 }

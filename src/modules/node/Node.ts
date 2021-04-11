@@ -10,7 +10,7 @@ class Node<T> {
    * @param value         значение информационной части узла
    * @param next          ссылка на следующий элемент списка
    */
-  constructor(value?: T | undefined, next?: Node<T> | undefined | null) {
+  public constructor(value?: T | undefined, next?: Node<T> | undefined | null) {
     this._value = value;
     this._next = next;
   }
@@ -19,7 +19,7 @@ class Node<T> {
   /**
    * Геттер для поля _value (значение информационной части)
    */
-  get value(): T | undefined {
+  public get value(): T | undefined {
     return this._value;
   }
 
@@ -28,7 +28,7 @@ class Node<T> {
    * Сеттер для поля _value (значение информационной части)
    * @param value         новое значение информационной части
    */
-  set value(value: T | undefined) {
+  public set value(value: T | undefined) {
     this._value = value;
   }
 
@@ -36,7 +36,7 @@ class Node<T> {
   /**
    * Геттер для поля _next (ссылка на следующий элемент списка)
    */
-  get next(): Node<T> | undefined | null {
+  public get next(): Node<T> | undefined | null {
     return this._next;
   }
 
@@ -45,8 +45,16 @@ class Node<T> {
    * Сеттер для поля _next (ссылка на следующий элемент списка)
    * @param next        новая ссылка на следующий элемент списка
    */
-  set next(next: Node<T> | undefined | null) {
+  public set next(next: Node<T> | undefined | null) {
     this._next = next;
+  }
+
+
+  /**
+   * Возвращает строковое представление узла списка
+   */
+  public toString(): string {
+    return `${this._value}`;
   }
 }
 
