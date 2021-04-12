@@ -9,6 +9,18 @@ class List<T> {
   private _header: Node<T> | null | undefined;       // ссылка на головной элемент списка
 
   /**
+   * Вспомогательный метод. Вычисляет "настоящий" индекс в списке для указанного индекса
+   * @param index       индекс
+   */
+  private calculateRealIndex(index: number): number {
+    if (index < 0 || index >= this._size) {
+      return -1;
+    }
+
+    return this._size - index - 1;
+  }
+
+  /**
    * Конструктор, создающий пустой список
    */
   public constructor() {
@@ -77,13 +89,33 @@ class List<T> {
 
 
   /**
+   * Возвращает элемент списка на заданной позиции
+   * @param index       индекс элемента
+   */
+  public get(index: number): Node<T> | null | undefined {
+    let realIndex: number = this.calculateRealIndex(index);
+
+    if (realIndex < 0 || this._size === 0) {
+      return undefined;
+    }
+
+    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
+    while (copyHeader !== null && (realIndex--) > 0) {
+      copyHeader = copyHeader!.next;
+    }
+
+    return copyHeader;
+  }
+
+
+  /**
    * Удаляет элемент под заданным индексом из списка
    * @param index       индекс удаляемого элемента
    */
   public remove(index: number): void {
-    let realIndex: number = this._size - index - 1;
+    let realIndex: number = this.calculateRealIndex(index);
 
-    if (this._size === 0 || realIndex < 0 || realIndex >= this._size) {
+    if (this._size === 0 || realIndex < 0) {
       return;
     }
 
