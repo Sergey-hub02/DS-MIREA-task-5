@@ -1,3 +1,4 @@
+import Node from "../node/Node";
 import List from "../list/List";
 
 /**
@@ -32,6 +33,14 @@ class QueueList<T> {
   public add(...elements: Array<T>): void {
     this._size += elements.length;
     this._list.add(...elements);
+  }
+
+  
+  /**
+   * Возвращает элемент, находящийся в начале очереди
+   */
+  public peek(): Node<T> | undefined | null {
+    return this._list.get(0);
   }
 
 

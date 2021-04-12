@@ -6,7 +6,7 @@ import { cloneDeep } from "lodash";
  */
 class List<T> {
   private _size: number;          // количество элементов в списке
-  private _header: Node<T> | null | undefined;       // ссылка на головной элемент списка
+  private _header: Node<T> | undefined | null;       // ссылка на головной элемент списка
 
   /**
    * Вспомогательный метод. Вычисляет "настоящий" индекс в списке для указанного индекса
@@ -49,7 +49,7 @@ class List<T> {
   /**
    * Геттер для поля _header (ссылка на головной элемент списка)
    */
-  public get header(): Node<T> | null | undefined {
+  public get header(): Node<T> | undefined | null {
     return this._header;
   }
 
@@ -58,7 +58,7 @@ class List<T> {
    * Сеттер для поля _header (ссылка на головной элемент списка)
    * @param header        новый головной элемент списка
    */
-  public set header(header: Node<T> | null | undefined) {
+  public set header(header: Node<T> | undefined | null) {
     this._header = header;
   }
 
@@ -92,14 +92,14 @@ class List<T> {
    * Возвращает элемент списка на заданной позиции
    * @param index       индекс элемента
    */
-  public get(index: number): Node<T> | null | undefined {
+  public get(index: number): Node<T> | undefined | null {
     let realIndex: number = this.calculateRealIndex(index);
 
     if (realIndex < 0 || this._size === 0) {
       return undefined;
     }
 
-    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
+    let copyHeader: Node<T> | undefined | null = cloneDeep(this._header);
     while (copyHeader !== null && (realIndex--) > 0) {
       copyHeader = copyHeader!.next;
     }
@@ -126,7 +126,7 @@ class List<T> {
     }
 
     let listValues: Array<T | undefined> = [];
-    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
+    let copyHeader: Node<T> | undefined | null = cloneDeep(this._header);
 
     while (copyHeader !== null && (realIndex--) - 1 > 0) {
       listValues.push(copyHeader!.value);
@@ -166,7 +166,7 @@ class List<T> {
     // клонирование головного объекта списка
     let list: Array<T | undefined> = [];
 
-    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
+    let copyHeader: Node<T> | undefined | null = cloneDeep(this._header);
     list.push(copyHeader!.value);
 
     copyHeader = copyHeader!.next;

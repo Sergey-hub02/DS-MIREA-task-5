@@ -20,7 +20,10 @@ const main: () => Promise<void> = async () => {
   console.log(queue);
   console.log(queue.toString());
 
+  console.log(queue.peek());
   queue.poll();
+
+  console.log(queue.peek());
   queue.poll();
 }
 
