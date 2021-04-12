@@ -55,7 +55,7 @@ class List<T> {
    * Добавляет элементы или элемент в начало списка
    * @param elements        добавляемые элементы
    */
-  public add(...elements: Array<T>): void {
+  public add(...elements: Array<T | undefined>): void {
     this._size += elements.length;
 
     for (const element of elements) {
@@ -77,6 +77,53 @@ class List<T> {
 
 
   /**
+   * Удаляет элемент под заданным индексом из списка
+   * @param index       индекс удаляемого элемента
+   */
+  public remove(index: number): void {
+    let realIndex: number = this._size - index - 1;
+
+    if (this._size === 0 || realIndex < 0 || realIndex >= this._size) {
+      return;
+    }
+
+    if (realIndex === 0) {  // нужно удалить головной элемент
+      --this._size;
+      this._header = this._header!.next;
+      return;
+    }
+
+    let listValues: Array<T | undefined> = [];
+    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
+
+    while (copyHeader !== null && (realIndex--) - 1 > 0) {
+      listValues.push(copyHeader!.value);
+      copyHeader = copyHeader!.next;
+    }
+
+    // в copyHeader находится ссылка на элемент до удаляемого
+    listValues.push(copyHeader!.value);     // добавляем в массив значение элемента до удаляемого
+    copyHeader = copyHeader!.next!.next;
+
+    while (copyHeader !== null) {
+      listValues.push(copyHeader!.value);
+      copyHeader = copyHeader!.next;
+    }
+
+    const newLength: number = listValues.length;
+
+    let newList: List<T> = new List();
+
+    listValues.forEach((_, index: number) => {
+      newList.add(listValues[newLength - index - 1]);
+    });
+
+    this._size = newLength;
+    this._header = newList.header;
+  }
+
+
+  /**
    * Возвращает строковое представление однонаправленного списка
    */
   public toString(): string {
@@ -85,18 +132,19 @@ class List<T> {
     }
 
     // клонирование головного объекта списка
-    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
+    let list: Array<T | undefined> = [];
 
-    let strList: string = `[${copyHeader!.value}`;
+    let copyHeader: Node<T> | null | undefined = cloneDeep(this._header);
+    list.push(copyHeader!.value);
+
     copyHeader = copyHeader!.next;
 
     while (copyHeader !== null) {
-      strList += `, ${copyHeader!.value}`;
+      list.push(copyHeader!.value);
       copyHeader = copyHeader!.next;
     }
 
-    strList += `]`;
-    return strList;
+    return `[${list.reverse().join(", ")}]`;
   }
 }
 

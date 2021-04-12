@@ -10,15 +10,19 @@ const STDIN: string = fs.readFileSync(consts.PATH_TO_INPUT + consts.INPUT_FILE, 
 const main: () => Promise<void> = async () => {
   let lst: List<number> = new List();
 
-  const values: Array<number> = STDIN.split(" ").map(item => +item);
+  const values: Array<number> = STDIN.split("\n")[0].split(" ").map(item => +item);
 
   values.forEach(item => {
     lst.add(item);
   });
 
+  const removeIndex: number = +STDIN.split("\n")[1][0];
+
   console.log(lst.size);
   console.log(lst);
   console.log(lst.toString());
+  lst.remove(removeIndex);
+  console.log(lst);
 }
 
 
