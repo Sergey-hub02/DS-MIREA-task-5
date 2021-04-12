@@ -8,8 +8,8 @@ const STDIN: string = fs.readFileSync(consts.PATH_TO_INPUT + consts.INPUT_FILE, 
  * Основная функция
  */
 const main: () => Promise<void> = async () => {
-  const prefixExpr: string = STDIN;
-  tasks.calcInPrefixForm(prefixExpr);
+  const infixExpression: string = STDIN;
+  console.log(`${infixExpression} = ${tasks.toPrefixForm(infixExpression)}`);
 }
 
 
