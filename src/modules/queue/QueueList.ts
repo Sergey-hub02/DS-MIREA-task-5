@@ -66,6 +66,14 @@ class QueueList<T> {
 
 
   /**
+   * Возвращает true, если очередь пуста
+   */
+  public isEmpty(): boolean {
+    return (this._size === 0);
+  }
+
+
+  /**
    * Возвращает строковое представление очереди
    */
   public toString(): string {

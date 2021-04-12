@@ -17,19 +17,11 @@ const main: () => Promise<void> = async () => {
     queue.add(+item);
   });
 
-  console.log(queue);
-  console.log(queue.toString());
-
-  console.log(queue.peek());
-  queue.poll();
-
-  console.log(queue.peek());
-  queue.poll();
-
-  console.log(queue);
-
-  queue.clear();
-  console.log(queue);
+  console.log("Queue:");
+  while (!queue.isEmpty()) {
+    console.log(queue.peek()!.toString());
+    queue.poll();
+  }
 }
 
 
