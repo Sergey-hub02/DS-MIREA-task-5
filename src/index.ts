@@ -25,6 +25,11 @@ const main: () => Promise<void> = async () => {
 
   console.log(queue.peek());
   queue.poll();
+
+  console.log(queue);
+
+  queue.clear();
+  console.log(queue);
 }
 
 

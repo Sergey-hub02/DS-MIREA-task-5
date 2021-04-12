@@ -54,6 +54,18 @@ class QueueList<T> {
 
 
   /**
+   * Удаляет все элементы из очереди
+   */
+  public clear(): void {
+    const N: number = this._size;
+
+    for (let i: number = 0; i < N; ++i) {
+      this.poll();
+    }
+  }
+
+
+  /**
    * Возвращает строковое представление очереди
    */
   public toString(): string {
