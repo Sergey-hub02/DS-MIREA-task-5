@@ -30,7 +30,25 @@ class QueueList<T> {
    * @param elements        добавляемый элемент (элементы)
    */
   public add(...elements: Array<T>): void {
+    this._size += elements.length;
     this._list.add(...elements);
+  }
+
+
+  /**
+   * Удаляет элемент, который находится в начале очереди
+   */
+  public poll(): void {
+    --this._size;
+    this._list.remove(0);
+  }
+
+
+  /**
+   * Возвращает строковое представление очереди
+   */
+  public toString(): string {
+    return this._list.toString();
   }
 }
 

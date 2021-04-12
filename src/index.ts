@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as consts from "./constants";
-import List from "./modules/list/List";
+import QueueList from "./modules/queue/QueueList";
 
 const STDIN: string = fs.readFileSync(consts.PATH_TO_INPUT + consts.INPUT_FILE, "utf-8");
 
@@ -8,21 +8,20 @@ const STDIN: string = fs.readFileSync(consts.PATH_TO_INPUT + consts.INPUT_FILE, 
  * Основная функция
  */
 const main: () => Promise<void> = async () => {
-  let lst: List<number> = new List();
+  let queue: QueueList<number> = new QueueList();
 
-  const values: Array<number> = STDIN.split("\n")[0].split(" ").map(item => +item);
-
-  values.forEach(item => {
-    lst.add(item);
+  STDIN.split(" ").forEach(item => {
+    queue.add(+item);
   });
 
-  const removeIndex: number = +STDIN.split("\n")[1][0];
+  console.log(queue);
+  console.log(queue.toString());
 
-  console.log(lst.size);
-  console.log(lst);
-  console.log(lst.toString());
-  lst.remove(removeIndex);
-  console.log(lst);
+  queue.poll();
+  queue.poll();
+
+  console.log(queue);
+  console.log(queue.toString());
 }
 
 
