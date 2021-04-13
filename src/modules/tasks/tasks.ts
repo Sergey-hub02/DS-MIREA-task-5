@@ -2,7 +2,7 @@
  * Преобразовывает строку выражения в массив, удаляя при этом пробелы
  * @param expr        строка арифметического выраженияв префиксной форме
  */
-const exprToArray: (expr: string) => Array<string> = (expr: string) => {
+const exprToArray: (_: string) => Array<string> = (expr: string) => {
   let exprArray: Array<string> = [];
 
   expr.split(" ").forEach((item: string) => {
@@ -32,7 +32,7 @@ const exprToArray: (expr: string) => Array<string> = (expr: string) => {
  * Вычисляет значение выражения, представленного в виде префиксной нотации
  * @param expr        выражение в префиксной нотации
  */
-export const calcInPrefixForm: (expr: string) => number = (expr: string) => {
+export const calcInPrefixForm: (_: string) => number = (expr: string) => {
   let exp: Array<string> = exprToArray(expr);
 
   while (exp.length > 1) {
@@ -90,7 +90,7 @@ export const calcInPrefixForm: (expr: string) => number = (expr: string) => {
  * Преобразовывает выражение в инфиксной форме в префиксную
  * @param expr        выражение в инфиксной форме
  */
-export const toPrefixForm: (expr: string) => string = (expr: string) => {
+export const toPrefixForm: (_: string) => string = (expr: string) => {
   if (expr.includes("(") || expr.includes(")")) {
     throw new Error("[ERROR]: Выражение не должно содержать скобок!");
   }
@@ -140,4 +140,37 @@ export const toPrefixForm: (expr: string) => string = (expr: string) => {
   }
 
   return stackOperands[0];
+}
+
+
+/**
+ * Складывает 2 числа, которые не могут быть представлены в виде примитивных типов
+ * @param leftNumber        // первое из складываемых чисел
+ * @param rightNumber       // второе из складываемых чисел
+ */
+export const addTwoLargeNumbers: (_: string, __: string) => string = (leftNumber: string, rightNumber: string) => {
+  if (leftNumber.length < rightNumber.length) {   // к большему по длине числу должно прибавляться меньшее
+    [leftNumber, rightNumber] = [rightNumber, leftNumber];
+  }
+
+  let leftStack: Array<number> = leftNumber.split("").map(digit => +digit).reverse();
+  let rightStack: Array<number> = rightNumber.split("").map(digit => +digit).reverse();
+
+  let carry: number = 0;
+
+  // начинаем складывать с конца
+  return leftStack.map((digit: number, index: number) => {
+    const oDigit: number = (index >= rightStack.length) ? 0 : rightStack[index]; // к числу по сути добавляются дополнительные нули
+    const tempRes: number = digit + oDigit + carry;
+
+    if (tempRes >= 10) {
+      carry = 1;
+      return tempRes - 10;
+    }
+
+    carry = 0;
+    return tempRes;
+  })
+    .reverse()
+    .join("");
 }
