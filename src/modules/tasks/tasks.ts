@@ -165,7 +165,8 @@ export const addTwoLargeNumbers: (_: string, __: string) => string = (leftNumber
 
     if (tempRes >= 10) {
       carry = 1;
-      return tempRes - 10;
+      // return tempRes - 10;
+      return ((index === leftStack.length - 1) ? tempRes : tempRes - 10);
     }
 
     carry = 0;
